@@ -12,7 +12,6 @@ GREEN = (0, 100, 0)
 BLOCKSIZE = (20, 20)
 
 windowSurf = pygame.display.set_mode(WINDOWSIZE)
-pygame.display.set_caption("Game of Life (PAUSED)")
 fpsClock = pygame.time.Clock()
 
 def drawGrid():
@@ -67,7 +66,11 @@ def main():
 	paused = True
 	
 	while True:
-		print(fpsClock.get_fps())
+		#print(fpsClock.get_fps())
+		if paused:
+			pygame.display.set_caption("Game of Life (PAUSED) - " + str(fpsClock.get_fps()))
+		else:
+			pygame.display.set_caption("Game of Life (RUNNING) - " + str(fpsClock.get_fps()))
 		windowSurf.fill(BLACK)
 		for event in pygame.event.get():
 			if event.type == QUIT:
@@ -88,9 +91,9 @@ def main():
 				elif event.key == K_SPACE:
 					paused = not paused
 					if paused:
-						pygame.display.set_caption("Game of Life (PAUSED)")
+						pygame.display.set_caption("Game of Life (PAUSED) - " + str(fpsClock.get_fps()))
 					else:
-						pygame.display.set_caption("Game of Life (RUNNING)")
+						pygame.display.set_caption("Game of Life (RUNNING) - " + str(fpsClock.get_fps()))
 		if paused:
 			buttonsPressed = pygame.mouse.get_pressed()
 			if buttonsPressed[0] or buttonsPressed[2]:
